@@ -1,4 +1,4 @@
-from classes import Record, AddressBook, Phone
+from classes import Record, AddressBook
 
 phonebook = AddressBook()
 
@@ -36,10 +36,10 @@ def add_user(name, phone):
 
 @input_error
 def change_phone(name, phone):
-    records = phonebook.search(name=name)
-    if records:
-        records[0].phones = [Phone(phone)]
-        return "Contact updated successfully."
+    record = phonebook.get(name, None)
+    if record:
+        record.edit_phone(index=0, phone=phone)
+        return "Phone number updated successfully"
     else:
         return "There is no such name"
 
@@ -53,11 +53,12 @@ def show_all():
 
 @input_error
 def get_phone_number(name):
-    records = phonebook.search(name=name)
-    if records:
-        return records[0].phones[0].value
+    record = phonebook.get(name, None)
+    if record:
+        return record.phones[0].value
     else:
         return "There is no such name"
+
 
 commands = {
     'hello': greeting,
