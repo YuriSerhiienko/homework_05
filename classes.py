@@ -24,8 +24,6 @@ class Record:
             phone = Phone(phone)
         if phone not in self.phones:
             self.phones.append(phone)
-
-
     
     def edit_phone(self, index, phone):
         self.phones[index] = Phone(phone)
@@ -37,4 +35,9 @@ class AddressBook(UserDict):
     def add_record(self, record):
         self.data[record.name.value] = record
 
-
+    def search(self, name=None, phone=None):
+        results = []
+        for contact in self.data.values():
+            if (name and name.lower() in contact.name.value.lower()) or (phone and phone in [phone.value for phone in contact.phones]):
+                results.append(contact)
+        return results
