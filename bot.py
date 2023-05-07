@@ -1,4 +1,4 @@
-from classes_test import Record, AddressBook
+from classes import Record, AddressBook
 
 phonebook = AddressBook()
 
