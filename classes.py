@@ -32,12 +32,3 @@ class AddressBook(UserDict):
     def add_record(self, record):
         self.data[record.name.value] = record
 
-    def search(self, name=None, phone=None):
-        result = []
-        for record in self.data.values():
-            if name and record.name.value != name:
-                continue
-            if phone and not any(p.value == phone for p in record.phones):
-                continue
-            result.append(record)
-        return result
