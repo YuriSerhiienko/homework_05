@@ -29,10 +29,22 @@ def exit():
     return None
 
 @input_error
-def add_user(name, phone):
-    record = Record(name, phone)
-    phonebook.add_record(record)
-    return "Contact added successfully"
+def add_user(name, phone=None):
+    record = phonebook.get(name, None)
+    if record:
+        if phone:
+            record.add_phone(phone)
+            return "Contact successfully updated"
+        else:
+            return "Contact already exists"
+    else:
+        if phone:
+            record = Record(name, phone)
+        else:
+            record = Record(name)
+        phonebook.add_record(record)
+        return "Contact added successfully"
+
 
 @input_error
 def change_phone(name, phone):
@@ -48,16 +60,23 @@ def show_all():
         return "The phonebook is empty"
     result = ''
     for record in phonebook.values():
-        result += f"{record.name.value}: {record.phones[0].value}\n"
+        phones = ', '.join([phone.value for phone in record.phones])
+        result += f"{record.name.value}: {phones}\n"
     return result.rstrip()
+
 
 @input_error
 def get_phone_number(name):
     record = phonebook.get(name, None)
     if record:
-        return record.phones[0].value
+        if record.phones:
+            return ', '.join([phone.value for phone in record.phones])
+        else:
+            return "Contact has no data"
     else:
         return "There is no such name"
+
+
 
 
 commands = {
