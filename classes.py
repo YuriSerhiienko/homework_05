@@ -20,7 +20,12 @@ class Record:
             self.add_phone(phone)
 
     def add_phone(self, phone):
-        self.phones.append(Phone(phone))
+        if isinstance(phone, str):
+            phone = Phone(phone)
+        if phone not in self.phones:
+            self.phones.append(phone)
+
+
     
     def edit_phone(self, index, phone):
         self.phones[index] = Phone(phone)
@@ -31,4 +36,5 @@ class Record:
 class AddressBook(UserDict):
     def add_record(self, record):
         self.data[record.name.value] = record
+
 
