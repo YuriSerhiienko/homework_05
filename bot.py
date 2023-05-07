@@ -1,4 +1,4 @@
-from classes import Record, AddressBook
+from classes_test import Record, AddressBook
 
 phonebook = AddressBook()
 
@@ -71,15 +71,7 @@ def get_phone_number(name):
         return ", ".join(result_strings)
     else:
         return "There is no such name"
-    
-def get_name(phone):
-    result = phonebook.search(phone=phone)
-    if result:
-        result_strings = [f"{contact.name.value}: {phone.value}" for contact in result for phone in contact.phones]
-        return ", ".join(result_strings)
-    else:
-        return "No records found for that phone number"
-    
+        
 def search_by_criteria(criteria):
     if criteria and (criteria.isdigit() or "@" in criteria):
         result = phonebook.search(phone=criteria)
@@ -102,7 +94,6 @@ commands = {
     'change': change_phone,
     'show all': show_all,
     "phone": get_phone_number,
-    'name': get_name,
     'exit': exit,
     'good bye': exit,
     'close': exit,
